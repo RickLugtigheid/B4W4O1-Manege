@@ -113,9 +113,27 @@ class CRUD {
     function Drop(){$this->conn = null;}
     #endregion
 }
+
+function View($filename = "", $data = null)
+{
+	if ($data) {
+		foreach($data as $key => $value) {
+			$$key = $value;
+		}
+    }
+	require(ROOT . 'view/_includes/header.php');
+	require(ROOT . 'view/' . $filename . '.php');
+	require(ROOT . 'view/_includes/footer.php');
+}
+
 function Sanitize($data) {
     $data = trim($data);
     $data = htmlspecialchars($data);
     $data = stripcslashes($data);
     return $data;
+}
+function SanitizeArray($array){
+    foreach($array as $item){
+        Sanitize($item);
+    }
 }
